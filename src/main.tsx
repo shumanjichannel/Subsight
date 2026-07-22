@@ -12,6 +12,7 @@ import Landing from "./routes/landing";
 import Login from "./routes/login";
 import Signup from "./routes/signup";
 import Dashboard from "./routes/dashboard";
+import SubscriptionsPage from "./routes/subscriptions";
 import Pricing from "./routes/pricing";
 
 import "./styles/app.css";
@@ -58,7 +59,7 @@ createRoot(document.getElementById("root")!).render(
                   path="subscriptions"
                   element={
                     <ProtectedRoute>
-                      <Placeholder title="Subscriptions" />
+                      <SubscriptionsPage />
                     </ProtectedRoute>
                   }
                 />
