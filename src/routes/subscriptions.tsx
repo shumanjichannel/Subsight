@@ -32,6 +32,7 @@ import {
   type SubscriptionStatus,
   type SortOption,
 } from "~/lib/subscriptions-data";
+import { SubscriptionLogo } from "~/lib/subscription-logos";
 
 const statusStyles: Record<SubscriptionStatus, string> = {
   active: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400",
@@ -260,14 +261,11 @@ export default function SubscriptionsPage() {
               key={ds.id}
               className="flex items-center gap-2.5 rounded-lg border border-border bg-muted/30 px-3 py-2.5"
             >
-              <div
-                className={cn(
-                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm",
-                  categoryAvatarColors[ds.category],
-                )}
-              >
-                {ds.logo}
-              </div>
+              <SubscriptionLogo
+                merchant={ds.merchant}
+                size="h-8 w-8"
+                className="rounded-lg text-sm"
+              />
               <div className="min-w-0 flex-1">
                 <p className="truncate text-xs font-medium">{ds.merchant}</p>
                 <p className="text-[11px] text-muted-foreground">
@@ -454,14 +452,7 @@ function SubscriptionCard({
     >
       {/* Card header */}
       <div className="flex items-start gap-3 p-4 lg:p-5">
-        <div
-          className={cn(
-            "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg lg:h-11 lg:w-11",
-            categoryAvatarColors[sub.category],
-          )}
-        >
-          {sub.logo}
-        </div>
+        <SubscriptionLogo merchant={sub.merchant} />
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
             <h3 className="truncate text-sm font-semibold lg:text-base">

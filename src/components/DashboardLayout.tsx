@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "~/contexts/AuthContext";
 import { cn } from "~/lib/utils";
+import SubSightLogo from "~/components/SubSightLogo";
 
 const navItems = [
   {
@@ -90,10 +91,9 @@ export default function DashboardLayout() {
         <div className="flex h-14 items-center justify-between border-b border-border px-4">
           <Link
             to="/dashboard"
-            className="flex items-center gap-2 text-lg font-bold tracking-tight"
+            className="flex items-center text-primary"
           >
-            <span className="text-xl">🔍</span>
-            <span>SubSight</span>
+            <SubSightLogo size={26} />
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
@@ -197,10 +197,9 @@ export default function DashboardLayout() {
           </button>
           <Link
             to="/dashboard"
-            className="flex items-center gap-2 text-lg font-bold tracking-tight"
+            className="flex items-center text-primary"
           >
-            <span className="text-xl">🔍</span>
-            <span>SubSight</span>
+            <SubSightLogo size={24} />
           </Link>
         </header>
 
