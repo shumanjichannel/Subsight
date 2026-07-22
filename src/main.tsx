@@ -12,6 +12,7 @@ import Landing from "./routes/landing";
 import Login from "./routes/login";
 import Signup from "./routes/signup";
 import Dashboard from "./routes/dashboard";
+import AuthCallback from "./routes/auth-callback";
 import SubscriptionsPage from "./routes/subscriptions";
 import Pricing from "./routes/pricing";
 
@@ -42,6 +43,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route index element={<Landing />} />
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
+                <Route path="auth/callback" element={<AuthCallback />} />
                 <Route path="pricing" element={<Pricing />} />
               </Route>
 

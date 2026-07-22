@@ -23,6 +23,11 @@ interface AuthState {
   signOut: () => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   resetPasswordForEmail: (email: string) => Promise<{ error?: string }>;
+  verifyOtp: (
+    tokenHash: string,
+    type: "recovery" | "signup" | "invite",
+  ) => Promise<{ error?: string }>;
+  updatePassword: (newPassword: string) => Promise<{ error?: string }>;
 }
 
 const AuthContext = createContext<AuthState | undefined>(undefined);
@@ -91,6 +96,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         password,
         options: {
           data: { full_name: name },
+          emailRedirectTo: `${window.location.origin}/login`,
         },
       });
       return { error: mapError(error) };
@@ -106,7 +112,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
   }, []);
@@ -114,6 +120,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const resetPasswordForEmail = useCallback(async (email: string) => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/login`,
+    });
+    return { error: mapError(error) };
+  }, []);
+
+  const verifyOtp = useCallback(
+    async (
+      tokenHash: string,
+      type: "recovery" | "signup" | "invite",
+    ) => {
+      const { error } = await supabase.auth.verifyOtp({
+        token_hash: tokenHash,
+        type,
+      });
+      return { error: mapError(error) };
+    },
+    [],
+  );
+
+  const updatePassword = useCallback(async (newPassword: string) => {
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
     });
     return { error: mapError(error) };
   }, []);
@@ -130,6 +157,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signOut,
         signInWithGoogle,
         resetPasswordForEmail,
+        verifyOtp,
+        updatePassword,
       }}
     >
       {children}
