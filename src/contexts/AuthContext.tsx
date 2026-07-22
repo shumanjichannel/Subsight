@@ -22,7 +22,6 @@ interface AuthState {
   ) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   signInWithGoogle: () => Promise<void>;
-  signInWithGitHub: () => Promise<void>;
   resetPasswordForEmail: (email: string) => Promise<{ error?: string }>;
 }
 
@@ -112,15 +111,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const signInWithGitHub = useCallback(async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: `${window.location.origin}/dashboard`,
-      },
-    });
-  }, []);
-
   const resetPasswordForEmail = useCallback(async (email: string) => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/login`,
@@ -139,7 +129,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signUp,
         signOut,
         signInWithGoogle,
-        signInWithGitHub,
         resetPasswordForEmail,
       }}
     >
