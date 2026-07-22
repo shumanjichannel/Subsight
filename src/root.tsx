@@ -3,6 +3,7 @@ import { useTheme } from "next-themes";
 import { Sun, Moon, Menu, X, LogOut, User as UserIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "./contexts/AuthContext";
+import SubSightLogo from "./components/SubSightLogo";
 
 export default function RootLayout() {
   const { theme, setTheme } = useTheme();
@@ -31,9 +32,8 @@ export default function RootLayout() {
     <div className="flex min-h-dvh flex-col bg-background text-foreground antialiased">
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <Link to="/" className="flex items-center gap-2 text-xl font-bold tracking-tight">
-            <span className="text-2xl">🔍</span>
-            <span>SubSight</span>
+          <Link to="/" className="flex items-center text-primary">
+            <SubSightLogo size={28} />
           </Link>
 
           {/* Desktop nav */}

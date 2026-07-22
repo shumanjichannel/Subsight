@@ -36,6 +36,7 @@ import {
   insights,
   upcomingCharges,
 } from "~/lib/dashboard-data";
+import { SubscriptionLogo } from "~/lib/subscription-logos";
 
 const iconMap: Record<string, React.ElementType> = {
   Calendar,
@@ -320,9 +321,11 @@ export default function Dashboard() {
                       >
                         <td className="py-3 pl-4 lg:pl-6">
                           <div className="flex items-center gap-3">
-                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-lg">
-                              {sub.logo}
-                            </div>
+                            <SubscriptionLogo
+                              merchant={sub.merchant}
+                              size="h-9 w-9"
+                              className="rounded-lg"
+                            />
                             <span className="font-medium">{sub.merchant}</span>
                           </div>
                         </td>
@@ -427,9 +430,11 @@ export default function Dashboard() {
                   key={i}
                   className="flex items-center gap-3 rounded-lg border border-border p-3"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-lg">
-                    {charge.logo}
-                  </div>
+                  <SubscriptionLogo
+                    merchant={charge.merchant}
+                    size="h-9 w-9"
+                    className="rounded-lg"
+                  />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium">
                       {charge.merchant}
