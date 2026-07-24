@@ -37,6 +37,7 @@ import {
   upcomingCharges,
 } from "~/lib/dashboard-data";
 import { SubscriptionLogo } from "~/lib/subscription-logos";
+import AIChatPanel from "~/components/AIChatPanel";
 
 const iconMap: Record<string, React.ElementType> = {
   Calendar,
@@ -452,6 +453,9 @@ export default function Dashboard() {
           </Card>
         </motion.div>
       </motion.div>
+
+      {/* AI Chat Assistant */}
+      <AIChatPanel />
     </div>
   );
 }
