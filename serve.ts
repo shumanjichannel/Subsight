@@ -21,6 +21,11 @@ function freePortCmd(port: number): string {
   );
 }
 
+// ── Free both ports first ───────────────────────────────────────────
+
+await Bun.$`sudo sh -c ${freePortCmd(PORT)}`.quiet().nothrow();
+await Bun.$`sudo sh -c ${freePortCmd(AI_PORT)}`.quiet().nothrow();
+
 // ── Start AI API server as a child process ──────────────────────────
 
 const aiProc = Bun.spawn(["bun", "run", "server/ai-api.ts"], {
@@ -28,7 +33,7 @@ const aiProc = Bun.spawn(["bun", "run", "server/ai-api.ts"], {
   stdio: ["ignore", "inherit", "inherit"],
   env: { ...process.env },
 });
-await Bun.sleep(500);
+await Bun.sleep(800);
 console.log(`AI API server spawned (PID ${aiProc.pid})`);
 
 // ── Proxy helper ────────────────────────────────────────────────────
@@ -52,11 +57,6 @@ async function proxyToAi(req: Request): Promise<Response> {
     );
   }
 }
-
-// ── Free both ports ─────────────────────────────────────────────────
-
-await Bun.$`sudo sh -c ${freePortCmd(PORT)}`.quiet().nothrow();
-await Bun.$`sudo sh -c ${freePortCmd(AI_PORT)}`.quiet().nothrow();
 
 // ── Main HTTP server ────────────────────────────────────────────────
 
